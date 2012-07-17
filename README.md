@@ -31,11 +31,20 @@ Laradev uses the default auth class built within laravel.
 	- 'model' => 'User'
 	- etc. 
 
-Visit `http://myapp/laradev` and login with the default user/password.
+### Assets
+
+Publish laradev asset to your public directory
+
+run `php artisan bundle::publish`
+
+--
+
+Thats it! 
+Now visit `http://yourapp/laradev` and login with the default user/password.
 Username: juan@ph.ph
 Password: juan123
 
 ---
 
-Thats it for now and I hope you will learn from it, begginers...
+Thats it for now and I hope you will learn from it.
 
