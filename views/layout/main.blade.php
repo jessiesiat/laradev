@@ -27,12 +27,13 @@ $(document).ready(function(){
               </li>
               @endif
             </ul>
-            <?php
-            echo Topos\Menu::make(array('class' => 'nav pull-right'))
-                ->link_if(Auth::guest(), 'laradev/login', 'Login')
-                ->link_if(Auth::check(), 'laradev/logout', 'Logout')
-                ->render();
-            ?>
+            <ul class="nav pull-right">
+            @if (Auth::check())
+              <li>{{ HTML::link('laradev/logout', 'Logout') }}</li>
+            @else
+              <li>{{ HTML::link('laradev/login', 'Login') }}</li>
+            @endif  
+            </ul>
         </div>
       </div>
     </div>
