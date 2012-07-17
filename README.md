@@ -20,9 +20,10 @@ Add this to your 'bundles.php' array
 ### Migration
 
 Tables in laradev are prefix with 'laradev', i.e. 'laradev_books', etc. except for 'users' table.
+Make sure you dont have a table 'users' that already exists!
 
 To create the tables, run this in your command line
-`php artisan migrate:install laradev`
+`php artisan migrate laradev`
 
 ### Auth
 

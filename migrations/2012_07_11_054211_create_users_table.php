@@ -17,11 +17,11 @@ class Laradev_Create_Users_Table {
 			$table->timestamps();
 		});
 
-		DB::table('users')->insert(
-			'name' => 'Juan',
-			'email' => 'juan@ph.ph',
-			'password' => Hash::make('juan123')
-			);
+		DB::table('users')->insert(array(
+					'name' => 'Juan',
+					'email' => 'juan@ph.ph',
+					'password' => Hash::make('juan123')
+				));
 	}
 
 	/**
