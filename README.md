@@ -1,4 +1,4 @@
-# Laradev ~ A working bundle for learning Laravel PHP framework
+# Laradev
 
 Its a learning bundle for Laravel given the source code and how it works in the actual world.
 
@@ -21,7 +21,7 @@ Add this to your 'bundles.php' array
 
 Tables in laradev are prefix with 'laradev', i.e. 'laradev_books', etc. except for 'users' table.
 
-To create the table, run this in your command line
+To create the tables, run this in your command line
 `php artisan migrate:install laradev`
 
 ### Auth
