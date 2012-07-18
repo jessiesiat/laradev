@@ -37,7 +37,7 @@ $(document).ready(function(){
         </div>
       </div>
     </div>
-        
+       
         <div class="container-fluid">
             <div class="row-fluid">
                 <div class="span3 hero-unit">
@@ -45,13 +45,23 @@ $(document).ready(function(){
                   <p> A project created to test the beauty of Laravel </p>
                   <hr/>
                   @if(Auth::check())
+                    <b>Official Documentation</b><br/><br/>
+                    <ul class="unstyled">
+                      <li><a href="http://laravel.com/docs/routing">Routing</a></li>
+                      <li><a href="http://laravel.com/docs/controllers">Controllers</a></li>
+                      <li><a href="http://laravel.com/docs/database/eloquent">Eloquent ORM</a></li>
+                      <li><a href="http://laravel.com/docs/validation">Validation</a></li>
+                      <li><a href="http://laravel.com/docs/views/pagination">Pagination</a></li>
+                      <li><a href="http://laravel.com/docs/views/templating">Templating</a></li>
+                    </ul>
+                    <hr/>
                     <small>
                       <b>Oops! Take note:</b> change does brackets [ ], # to curly braces { }, @ in the Code section(view) respectively, I use alternative character instead of the blade syntax for it not to be parsed as php tags and be shown as plain text, got it!.
                     </small>
                   @endif
 
                 </div>
-                <div class="span8 well">
+                <div class="span9 well">
                     @if (Session::has('notify'))
                       <div class="alert alert-info">
                         <button class="close in fade alert" data-dismiss="alert">×</button>

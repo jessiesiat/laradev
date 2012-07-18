@@ -3,6 +3,7 @@
 @section('content')
 <h2>Working with Routes</h2>
 <p>The app below is a simple user entry form and maintainance which uses laravel routes to handle get and post request. I utilize <a href="http://laravel.com/docs/views/templating#blade-template-engine">laravel blade</a> template engine which uses braces for php tags and really! it looks clean!</p>
+<p>To learn more on routing with laravel visit <a href="http://laravel.com/docs/routing" target="_blank">Laravel routing documentation</a>.</p>
 <hr/>
 @if($user)
 <h3>Update User Form</h3>
@@ -24,7 +25,7 @@
 		{{ Form::password('password') }}
 		{{ Form::label('password_confirmation', 'Confirm Password') }}
 		{{ Form::password('password_confirmation') }}
-		<p>{{ Form::submit('Update User', array('class' => 'btn')) }}</p>
+		<p>{{ Form::submit('Update User', array('class' => 'btn btn-primary')) }} or {{ HTML::link('laradev', 'Cancel') }}</p>
 	{{ Form::close() }}
 @else
 <h3>New User Form</h3>
@@ -45,7 +46,7 @@
 		{{ Form::password('password') }}
 		{{ Form::label('password_confirmation', 'Confirm Password') }}
 		{{ Form::password('password_confirmation') }}
-		<p>{{ Form::submit('Submit User', array('class' => 'btn')) }}</p>
+		<p>{{ Form::submit('Submit User', array('class' => 'btn btn-primary')) }}</p>
 	{{ Form::close() }}
 @endif
 <h3>List of Users</h3>
@@ -56,7 +57,7 @@
     </tr>
   </thead>
   <tbody>
-  	@forelse($users as $user)
+  	@forelse($users->results as $user)
   	<tr>
 		<td>{{ $user->id }}</td>
 		<td>{{ $user->name }}</td><td>{{ $user->email }}</td><td>{{ $user->created_at }}</td><td>{{ $user->updated_at }}</td>
@@ -69,17 +70,19 @@
 	@endforelse
 </tbody>
 </table> 
+{{ $users->links() }}
 <blockquote>
   <p>Dont leave the users empty you need it for login to view this page.</p>
 </blockquote>
 <hr/>
 <h2>The Code</h2>
+<p>Please refer to the laravel documentation if you did not understand some code. Quick links are prodived on the side.</p>
 <hr/>
 <h4>Route</h4>
 <pre class="prettyprint linenums">
 //application\routes.php
 Route::get('user/(:num?)', array('before' => 'auth', 'do' => function($id){
-	$users = Users::all();
+	$users = DB::table('users')->paginate(5);
 	if($id)
 	{
 		$user = User::find($id);
@@ -143,9 +146,13 @@ Class User extends Eloquent{}
 </pre>
 
 <h4>View</h4>
-<dl>some desc</dl>
 <pre class="prettyprint linenums">
 //application\views\user\index.blade.php
+#if(Session::has('errors'))
+	[[ $errors->first('name', ':message') ]] 
+	[[ $errors->first('email', ':message') ]]
+	[[ $errors->first('password', ':message') ]]
+#endif
 #if ($user)
 Update User Form
 [[ Form::open('update_user') ]]
@@ -158,7 +165,7 @@ Update User Form
 		[[ Form::password('password') ]]
 		[[ Form::label('password_confirmation', 'Confirm Password') ]]
 		[[ Form::password('password_confirmation') ]]
-		[[ Form::submit('Update User', array('class' => 'btn')) ]]
+		[[ Form::submit('Update User', array('class' => 'btn')) ]] or [[ HTML::link('user', 'Cancel') ]]
 [[ Form::close() ]]
 #else
 New User Form
@@ -176,7 +183,7 @@ New User Form
 #endif
 List of User
 ID | Name | Email | Created At | Updated At | Action
-  	#forelse($users as $user)
+  	#forelse($users->results as $user)
 		[[ $user->id ]] [[ $user->name ]] | [[ $user->email ]] |
 		[[ $user->created_at ]] | [[ $user->updated_at ]]
 		[[ HTML::link('laradev/'.$user->id, 'Edit') ]] | 
@@ -184,9 +191,8 @@ ID | Name | Email | Created At | Updated At | Action
 		onclick="return confirm('Are you sure?')">delete(html > a tag)
 	#empty
 		No data found.
-	#endforelse
-</tbody>
-</table> 
+	#endforels
+	[[ $users->links() ]]
 </pre>
 
 @endsection

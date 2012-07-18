@@ -4,6 +4,7 @@
 
 <h2>Working with Controllers</h2>
 <p>As what we are familiar with, lets work with C(Controller)in MVC. This is where we write code that communicates to our M(Model) where the business entities is being defined and display it in the V(Views). The app below is a simple book management/inventory. Take a look and try how it works!</p>
+<p>To learn more on working with laravel controller visit <a href="http://laravel.com/docs/controllers" target="_blank">Laravel controller documentation</a>.</p>
 <hr/>
 @if ($book)
 <h3>Update Book Form</h3>
@@ -23,7 +24,7 @@
 		{{ Form::text('author', $book->author) }}
 		{{ Form::label('published', 'Date Published') }}
 		{{ Form::text('published', $book->published, array('placeholder' => 'yy-mm-dd')) }}
-		<p>{{ Form::submit('Update Book', array('class' => 'btn btn-primary')) }}</p>
+		<p>{{ Form::submit('Update Book', array('class' => 'btn btn-primary')) }} or {{ HTML::link('laradev/book', 'Cancel') }} </p>
 	{{ Form::close() }}
 @else
 <h3>New Book Form</h3>
@@ -68,6 +69,13 @@
 </tbody>
 </table>
 {{ $books->links() }}
+<hr/>
+<h4>Route</h4>
+<p>It it important to know that controller must be registered in the routes file for it to be accessible via url. Most nested controller must be registered first in the routes especially when organizing controller into subfolder.</p>
+<p>To register our book controller, put this in your route.php file</p>
+<code>Route::controller('book')</code>
+<p>Or register all controller in our application</p>
+<code>Route::controller(Controller::detect())</code>
 <hr/>
 <h4>Controller</h4>
 <pre class="prettyprint linenums">
@@ -146,10 +154,14 @@ class Book_Controller extends Base_Controller {
 Class Book extends Eloquent {}
 </pre>
 
-
 <h4>View</h4>
 <pre class="prettyprint linenums">
 //applications\views\book\index.php
+#if(Session::has('errors')
+	[[ $errors->first('title', ':message') ]] 
+	[[ $errors->first('author', ':message') ]]
+	[[ $errors->first('published', ':message') ]]
+#endif
 #if ($book)
 [[ Form::open('book/update') ]]
 	[[ Form::hidden('id', $book->id) ]]
@@ -159,7 +171,7 @@ Class Book extends Eloquent {}
 	[[ Form::text('author', $book->author) ]]
 	[[ Form::label('published', 'Date Published') ]]
 	[[ Form::text('published', $book->published, array('placeholder' => 'yy-mm-dd')) ]]
-	[[ Form::submit('Update Book', array('class' => 'btn btn-primary')) ]]
+	[[ Form::submit('Update Book', array('class' => 'btn btn-primary')) ]] or [[ HTML::link('book', 'Cancel') ]]
 [[ Form::close() ]]
 #else 
 [[ Form::open('book/new') ]]
@@ -169,9 +181,22 @@ Class Book extends Eloquent {}
 	[[ Form::text('author', Input::old('author')) ]]
 	[[ Form::label('published', 'Date Published') ]]
 	[[ Form::text('published', Input::old('published'), array('placeholder' => 'yy-mm-dd')) ]]
-	[[ Form::submit('Update Book') ]]
+	[[ Form::submit('Update Book') ]] 
 [[ Form::close() ]]
 #endif
+
+List of Books
+ID | Title | Author | Published | Created At | Updated At | Action
+  	#forelse($books->results as $book)
+		[[ $book->id ]] [[ $book->title ]] | [[ $book->author ]] | [[ $book->published ]] |
+		[[ $book->created_at ]] | [[ $user->updated_at ]]
+		[[ HTML::link('laradev/'.$book->id, 'Edit') ]] | 
+		(html < a tag) href="[[ URL::to('book/delete/'.$book->id) ]]" 
+		onclick="return confirm('Are you sure?')">delete(html > a tag)
+	#empty
+		No data found.
+	#endforels
+	[[ $books->links() ]]
 </pre>
 
 @endsection

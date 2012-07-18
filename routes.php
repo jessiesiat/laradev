@@ -37,7 +37,7 @@ Route::get('view/(:num)', function($id){
 Route::group(array('before' => 'auth'), function(){
 
 	Route::get('(:bundle)/(:num?)', array('as' => 'dev_index', 'do' => function($id = ''){
-		$users = User::all();
+		$users = DB::table('users')->paginate(5);
 		if($id) 
 		{
 			$user = User::find($id);
