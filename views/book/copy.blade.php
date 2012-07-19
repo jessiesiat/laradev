@@ -5,9 +5,10 @@
 	<h3>Book: {{ $book->title }}</h3>
 	<h4>Provide a Copy to:</h4>
 	<br/>
-	{{ Form::open('laradev/book/copy', 'PUT', array('class' => 'form-inline')) }}
+	{{ Form::open('laradev/book/copy', 'POST', array('class' => 'form-inline')) }}
+		{{ Form::hidden('book_id', $book->id) }}
 		{{ Form::label('user', 'Name') }}
-		<select name="user">
+		<select name="user_id">
 			@foreach ($users as $user)
 				<option value="{{ $user->id }}">{{ $user->name }}</option>
 			@endforeach

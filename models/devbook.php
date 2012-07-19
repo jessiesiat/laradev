@@ -10,4 +10,9 @@ Class Devbook extends Elegant {
 						'published' => 'required'
 					);
 
+	public function users()
+	{
+		$this->has_many_and_belongs_to('User', 'laradev_books_users');
+	}
+
 }

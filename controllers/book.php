@@ -82,4 +82,14 @@ class Laradev_Book_Controller extends Base_Controller {
 							->with('users', $users);
 	}
 
+	public function post_copy()
+	{
+		echo $user_id = Input::get('user_id');
+		echo Input::get('book_id');
+		//$book = Devbook::find(Input::get('book_id'));
+		//$book->users()->attach($user_id);
+
+		//return Redirect::to_action('laradev::book@index');
+	}
+
 }

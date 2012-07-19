@@ -2,9 +2,8 @@
 
 @section('content')
 
-<h2>Working with Controllers</h2>
-<p>As what we are familiar with, lets work with C(Controller)in MVC. This is where we write code that communicates to our M(Model) where the business entities is being defined and display it in the V(Views). The app below is a simple book management/inventory. Take a look and try how it works!</p>
-<p>To learn more on working with laravel controller visit <a href="http://laravel.com/docs/controllers" target="_blank">Laravel controller documentation</a>.</p>
+<h2>Manage Books</h2>
+<p>A simple book management app.</p>
 <hr/>
 @if ($book)
 <h3>Update Book Form</h3>
@@ -47,7 +46,6 @@
 	{{ Form::close() }}
 @endif
 <hr/>
-
 <table class="table table-striped table-condensed table-bordered">
   <thead>
     <tr>
@@ -59,7 +57,7 @@
   	<tr>
 		<td>{{ $book->id }}</td>
 		<td>{{ $book->title }}</td><td>{{ $book->author }}</td><td>{{ $book->published }}</td><td>{{ $book->created_at }}</td><td>{{ $book->updated_at }}</td>
-		<td> <a href="{{ action('Laradev::book@index', array($book->id)) }}">edit</a> | <a onclick="return confirm('Are you sure?')" href="{{ action('Laradev::book@delete', array($book->id)) }}">delete</a></td>
+		<td> <a href="{{ action('Laradev::book@index', array($book->id)) }}" alt="edit" title="edit"><i class="icon-edit"></i></a> | <a onclick="return confirm('Are you sure?')" href="{{ action('Laradev::book@delete', array($book->id)) }}" alt="delete" title="delete"><i class="icon-trash"></i></a></td>
 	</tr>
 	@empty
 	<tr>
@@ -69,6 +67,10 @@
 </tbody>
 </table>
 {{ $books->links() }}
+<hr/>
+<h3>The Code</h3>
+<p>As what we are familiar with, lets work with C(Controller)in MVC. This is where we write code that communicates to our M(Model) where the business entities is being defined and display it in the V(Views). The app above is a simple book management/inventory. Take a look and try how it works!</p>
+<p>To learn more on working with laravel controller visit <a href="http://laravel.com/docs/controllers" target="_blank">Laravel controller documentation</a>.</p>
 <hr/>
 <h4>Route</h4>
 <p>It it important to know that controller must be registered in the routes file for it to be accessible via url. Most nested controller must be registered first in the routes especially when organizing controller into subfolder.</p>

@@ -8,4 +8,9 @@ class User extends Elegant {
 						'password' => 'required|confirmed'
 					);
 
+	public function books()
+	{
+		$this->has_many_and_belongs_to('Devbook', 'laradev_books_users');
+	}
+
 }

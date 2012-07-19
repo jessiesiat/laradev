@@ -1,9 +1,8 @@
 @layout('laradev::layout.main')
 
 @section('content')
-<h2>Working with Routes</h2>
-<p>The app below is a simple user entry form and maintainance which uses laravel routes to handle get and post request. I utilize <a href="http://laravel.com/docs/views/templating#blade-template-engine">laravel blade</a> template engine which uses braces for php tags and really! it looks clean!</p>
-<p>To learn more on routing with laravel visit <a href="http://laravel.com/docs/routing" target="_blank">Laravel routing documentation</a>.</p>
+<h2>Manage Users</h2>
+<p>A simple user management app.</p>
 <hr/>
 @if($user)
 <h3>Update User Form</h3>
@@ -61,7 +60,7 @@
   	<tr>
 		<td>{{ $user->id }}</td>
 		<td>{{ $user->name }}</td><td>{{ $user->email }}</td><td>{{ $user->created_at }}</td><td>{{ $user->updated_at }}</td>
-		<td>{{ HTML::link('laradev/'.$user->id, 'Edit') }} | <a href="{{ URL::to_route('del_dev_user', array($user->id)) }}" onclick="return confirm('Are you sure?')">delete</a></td>
+		<td>{{ HTML::decode(HTML::link('laradev/'.$user->id, '<i class="icon-edit"></i>', array('title' => 'edit', 'alt' => 'edit'))) }} | <a href="{{ URL::to_route('del_dev_user', array($user->id)) }}" onclick="return confirm('Are you sure?')" alt="delete" title="delete"><i class="icon-trash"></i></a></td>
 	</tr>
 	@empty
 	<tr>
@@ -75,7 +74,9 @@
   <p>Dont leave the users empty you need it for login to view this page.</p>
 </blockquote>
 <hr/>
-<h2>The Code</h2>
+<h3>The Code</h3>
+<p>The app above is a simple user entry form and maintainance which uses laravel routes to handle get and post request. I utilize <a href="http://laravel.com/docs/views/templating#blade-template-engine">laravel blade</a> template engine which uses braces for php tags and really! it looks clean!</p>
+<p>To learn more on routing with laravel visit <a href="http://laravel.com/docs/routing" target="_blank">Laravel routing documentation</a>.</p>
 <p>Please refer to the laravel documentation if you did not understand some code. Quick links are prodived on the side.</p>
 <hr/>
 <h4>Route</h4>
@@ -136,7 +137,6 @@ Route::get('del_user/(:num)', array('before' => 'auth', 'do' => function($id){
 	$user->delete();
 	return Redirect::to('user');
 }));
-
 </pre>
 
 <h4>Model</h4>

@@ -20,10 +20,10 @@ $(document).ready(function(){
               <li class="divider-vertical"><a href="#">Link</a></li>
               @if (Auth::check())
               <li class="{{ URI::is('laradev') ? 'active' : '' }}">
-                <a href="{{ URL::to('laradev') }}">Routes</a>
+                <a href="{{ URL::to('laradev') }}">Manage Users</a>
               </li>
               <li class="{{ URI::is('laradev/book') ? 'active' : '' }}">
-                <a href="{{ URL::to('laradev/book') }}">Controllers</a>
+                <a href="{{ URL::to('laradev/book') }}">Manage Books</a>
               </li>
               @endif
             </ul>
