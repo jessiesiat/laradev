@@ -47,12 +47,12 @@ $(document).ready(function(){
                   @if(Auth::check())
                     <b>Official Documentation</b><br/><br/>
                     <ul class="unstyled">
-                      <li><a href="http://laravel.com/docs/routing">Routing</a></li>
-                      <li><a href="http://laravel.com/docs/controllers">Controllers</a></li>
-                      <li><a href="http://laravel.com/docs/database/eloquent">Eloquent ORM</a></li>
-                      <li><a href="http://laravel.com/docs/validation">Validation</a></li>
-                      <li><a href="http://laravel.com/docs/views/pagination">Pagination</a></li>
-                      <li><a href="http://laravel.com/docs/views/templating">Templating</a></li>
+                      <li><a href="http://laravel.com/docs/routing" target="_blank">Routing</a></li>
+                      <li><a href="http://laravel.com/docs/controllers" target="_blank">Controllers</a></li>
+                      <li><a href="http://laravel.com/docs/database/eloquent" target="_blank">Eloquent ORM</a></li>
+                      <li><a href="http://laravel.com/docs/validation" target="_blank">Validation</a></li>
+                      <li><a href="http://laravel.com/docs/views/pagination" target="_blank">Pagination</a></li>
+                      <li><a href="http://laravel.com/docs/views/templating" target="_blank">Templating</a></li>
                     </ul>
                     <hr/>
                     <small>
