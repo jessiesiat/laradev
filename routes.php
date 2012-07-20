@@ -29,11 +29,6 @@ Route::post('(:bundle)/login', array('do'  => function() {
 
 }));
 
-Route::get('view/(:num)', function($id){
-	$post = Post::find($id);
-	return View::make('home.view')->with('post', $post);
-});
-
 Route::group(array('before' => 'auth'), function(){
 
 	Route::get('(:bundle)/(:num?)', array('as' => 'dev_index', 'do' => function($id = ''){
@@ -93,33 +88,13 @@ Route::group(array('before' => 'auth'), function(){
 		return Redirect::to_route('dev_index');
 	}));
 
-	Route::get('(:bundle)/admin', function(){
-		echo 'This is the admin page';
-	});
-	
-
-	Route::post('(:bundle)/admin', function(){
-		
-		$new_post = Input::all();
-		
-		$post = new Post();
-
-		if( $post->validate($new_post) )
-		{
-			$create = Post::create($new_post);
-			return Redirect::to('view/'.$create->id);
-		}
-
-		return Redirect::to('admin')
-						->with('user', Auth::user())
-						->with('errors', $post->errors())
-						->with_input();
-
-	});	
-
-	Route::get('new', function(){
-		return View::make('home.new');
-	});
+	Route::get('(:bundle)/(:num)/books', array('as' => 'user_books', 'to' => function($user_id){
+		$user = User::find($user_id);
+		$pivot = $user->books()->pivot();
+		return View::make('laradev::user.books')
+						->with('user', $user)
+						->with('pivot', $pivot);
+	}));
 
 });
 

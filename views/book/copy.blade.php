@@ -2,7 +2,7 @@
 
 @section('content')
 
-	<h3>Book: {{ $book->title }}</h3>
+    <h3>Book: {{ $book->title }}</h3>
 	<h4>Provide a Copy to:</h4>
 	<br/>
 	{{ Form::open('laradev/book/copy', 'POST', array('class' => 'form-inline')) }}

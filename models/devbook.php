@@ -12,7 +12,7 @@ Class Devbook extends Elegant {
 
 	public function users()
 	{
-		$this->has_many_and_belongs_to('User', 'laradev_books_users');
+		return $this->has_many_and_belongs_to('User', 'laradev_books_users');
 	}
 
 }

@@ -10,7 +10,7 @@ class User extends Elegant {
 
 	public function books()
 	{
-		$this->has_many_and_belongs_to('Devbook', 'laradev_books_users');
+		return $this->has_many_and_belongs_to('Devbook', 'laradev_books_users');
 	}
 
 }

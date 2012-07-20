@@ -84,12 +84,22 @@ class Laradev_Book_Controller extends Base_Controller {
 
 	public function post_copy()
 	{
-		echo $user_id = Input::get('user_id');
-		echo Input::get('book_id');
-		//$book = Devbook::find(Input::get('book_id'));
-		//$book->users()->attach($user_id);
+		$book = Devbook::find(Input::get('book_id'));
+		$book->users()->attach(Input::get('user_id'));
 
-		//return Redirect::to_action('laradev::book@index');
+		return Redirect::to_action('laradev::book@bookUsers', array(Input::get('book_id')));
+	}
+
+	public function get_bookUsers($book_id = '')
+	{
+		if( ! $book_id) return Redirect::back();
+		$book = Devbook::find($book_id);
+		$pivot = $book->users()->pivot();
+
+		return View::make('laradev::book.users')
+					 ->with('book', $book)
+					 ->with('pivot', $pivot);
+
 	}
 
 }

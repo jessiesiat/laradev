@@ -60,7 +60,7 @@
   	<tr>
 		<td>{{ $user->id }}</td>
 		<td>{{ $user->name }}</td><td>{{ $user->email }}</td><td>{{ $user->created_at }}</td><td>{{ $user->updated_at }}</td>
-		<td>{{ HTML::decode(HTML::link('laradev/'.$user->id, '<i class="icon-edit"></i>', array('title' => 'edit', 'alt' => 'edit'))) }} | <a href="{{ URL::to_route('del_dev_user', array($user->id)) }}" onclick="return confirm('Are you sure?')" alt="delete" title="delete"><i class="icon-trash"></i></a></td>
+		<td>{{ HTML::decode(HTML::link('laradev/'.$user->id, '<i class="icon-edit"></i>', array('title' => 'edit', 'alt' => 'edit'))) }} | <a href="{{ URL::to_route('del_dev_user', array($user->id)) }}" onclick="return confirm('Are you sure?')" alt="delete" title="delete"><i class="icon-trash"></i></a> | <a href="{{ URL::to_route('user_books', array($user->id)) }}" alt="books" title="books"><i class="icon-book"></i></a></td>
 	</tr>
 	@empty
 	<tr>

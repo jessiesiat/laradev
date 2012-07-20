@@ -57,7 +57,7 @@
   	<tr>
 		<td>{{ $book->id }}</td>
 		<td>{{ $book->title }}</td><td>{{ $book->author }}</td><td>{{ $book->published }}</td><td>{{ $book->created_at }}</td><td>{{ $book->updated_at }}</td>
-		<td> <a href="{{ action('Laradev::book@index', array($book->id)) }}" alt="edit" title="edit"><i class="icon-edit"></i></a> | <a onclick="return confirm('Are you sure?')" href="{{ action('Laradev::book@delete', array($book->id)) }}" alt="delete" title="delete"><i class="icon-trash"></i></a></td>
+		<td> <a href="{{ action('Laradev::book@index', array($book->id)) }}" alt="edit" title="edit"><i class="icon-edit"></i></a> | <a onclick="return confirm('Are you sure?')" href="{{ action('Laradev::book@delete', array($book->id)) }}" alt="delete" title="delete"><i class="icon-trash"></i></a> | <a href="{{ action('Laradev::book@copy', array($book->id)) }}" alt="buy" title="buy"><i class="icon-shopping-cart"></i></a></td>
 	</tr>
 	@empty
 	<tr>
