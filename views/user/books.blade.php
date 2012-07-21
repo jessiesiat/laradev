@@ -24,7 +24,7 @@ Route::get('(:num)/books', function($user_id){
 					->with('pivot', $pivot);
 });
 </pre>
-<h4>Model<h4>
+<b>Model<b>
 <pre class="prettyprint linenums">
 //application\models\user.php
 public function books()

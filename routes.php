@@ -1,11 +1,13 @@
 <?php
 //css assets
-Asset::container('head')->bundle('laradev')->add('bootstrap', 'css/bootstrap.css');
-Asset::container('head')->bundle('laradev')->add('bootstrap-responsive', 'css/bootstrap-responsive.css');
-Asset::container('head')->bundle('laradev')->add('prettify-css', 'css/prettify.css');
+Asset::container('laradev-head')->bundle('laradev')->add('bootstrap', 'css/bootstrap.css');
+Asset::container('laradev-head')->bundle('laradev')->add('bootstrap-responsive', 'css/bootstrap-responsive.css');
+Asset::container('laradev-head')->bundle('laradev')->add('style', 'css/style.css');
 //js assets
-Asset::container('footer')->bundle('laradev')->add('prettify-js', 'js/prettify.js');
-Asset::container('footer')->bundle('laradev')->add('bootstrap-alert', 'js/bootstrap-alert.js');
+Asset::container('laradev-footer')->bundle('laradev')->add('modernizer', 'js/modernizr-2.5.3.min.js');
+Asset::container('laradev-footer')->bundle('laradev')->add('prettify-js', 'js/prettify.js');
+Asset::container('laradev-footer')->bundle('laradev')->add('bootstrap-alert', 'js/bootstrap-alert.js');
+Asset::container('laradev-footer')->bundle('laradev')->add('scroll', 'js/scroll.js');
 
 Route::controller(Controller::detect('laradev'));
 

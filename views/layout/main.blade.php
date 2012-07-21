@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <title>Laradev</title>
 <meta name="description" content="  Laradev | Jessie Siat">
-{{ Asset::container('head')->styles() }}
+{{ Asset::container('laradev-head')->styles() }}
 <script>
 $(document).ready(function(){
   $(".alert").alert('close');
@@ -45,7 +45,7 @@ $(document).ready(function(){
                   <p> A project created to test the beauty of Laravel </p>
                   <hr/>
                   @if(Auth::check())
-                    <b>Official Documentation</b><br/><br/>
+                    <b>Official Documentation</b>
                     <ul class="unstyled">
                       <li><a href="http://laravel.com/docs/routing" target="_blank">Routing</a></li>
                       <li><a href="http://laravel.com/docs/controllers" target="_blank">Controllers</a></li>
@@ -59,9 +59,8 @@ $(document).ready(function(){
                       <b>Oops! Take note:</b> change does brackets [ ], # to curly braces { }, @ in the Code section(view) respectively, I use alternative character instead of the blade syntax for it not to be parsed as php tags and be shown as plain text, got it!.
                     </small>
                   @endif
-
                 </div>
-                <div class="span9 well">
+                <div class="span9">
                     @if (Session::has('notify'))
                       <div class="alert alert-info">
                         <button class="close in fade alert" data-dismiss="alert">×</button>
@@ -73,6 +72,6 @@ $(document).ready(function(){
             </div>
         </div>
 <br/> <br/>
-{{ Asset::container('footer')->scripts() }}
+{{ Asset::container('laradev-footer')->scripts() }}
 </body>
 </html>

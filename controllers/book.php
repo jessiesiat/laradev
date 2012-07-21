@@ -62,7 +62,7 @@ class Laradev_Book_Controller extends Base_Controller {
 		}
 
 		return Redirect::to_action('Laradev::book@index', array(Input::get('id')))
-							->with_errors('errors', $book->errors());
+							->with('errors', $book->errors());
 	}
 
 	public function get_delete($id)

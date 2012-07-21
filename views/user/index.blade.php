@@ -191,7 +191,7 @@ ID | Name | Email | Created At | Updated At | Action
 		onclick="return confirm('Are you sure?')">delete(html > a tag)
 	#empty
 		No data found.
-	#endforels
+	#endforelse
 	[[ $users->links() ]]
 </pre>
 

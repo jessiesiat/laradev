@@ -1,23 +1,22 @@
 @layout('Laradev::layout.main')
 
 @section('content')
-
     <h3>Book: <em>{{ $book->title }}</em></h3>
-	<h4>Provide a Copy to:</h4>
 	<br/>
 	{{ Form::open('laradev/book/copy', 'POST', array('class' => 'form-inline')) }}
 		{{ Form::hidden('book_id', $book->id) }}
-		{{ Form::label('user', 'Name') }}
+		{{ Form::label('user', 'Provide a Copy to: ') }}
 		<select name="user_id">
 			@foreach ($users as $user)
 				<option value="{{ $user->id }}">{{ $user->name }}</option>
 			@endforeach
 		</select>
-		{{ Form::submit('Go!', array('class' => 'btn btn-primary')) }}
+		{{ Form::submit(' Continue', array('class' => 'btn btn-primary')) }}
 	{{ Form::close() }}
 <hr/>
 <h3>Source Code</h3>
 <p>We now include relationships(many to many) in our model <em>User</em> and <em>Book</em> in here. We now utilize the Eloquent Laravel ORM which makes working with model relationships a breeze.</p>
+
 <h4>Controller<h4>
 <pre class="prettyprint linenums">
 //application\controller\book.php
@@ -37,6 +36,7 @@ public function post_copy()
 	return Redirect::to_action('book@index');
 }
 </pre>
+
 <h4>Model<h4>
 <pre class="prettyprint linenums">
 //application\models\user.php
@@ -51,6 +51,7 @@ public function users()
 	return $this->has_many_and_belongs_to('Book');
 }
 </pre>
+
 <h4>View<h4>
 <pre class="prettyprint linenums">
 Book: [[ $book->title ]]
@@ -66,4 +67,5 @@ Provide a Copy to:
 	[[ Form::submit('Go!') ]]
 [[ Form::close() ]]	
 </pre>
+
 @endsection
