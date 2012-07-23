@@ -109,14 +109,13 @@ Route::post('new_user', array('before' => 'auth', 'do' => function(){
 }));
 
 Route::post('update_user', function(){
-	$user = new User();
 	$rules = array(
 				'name' => 'required',
 				'email' => 'required|email',
 				'password' => 'required|confirmed'
 			);
-	$validation = Validator::make(Input::get(), $rules);
-	if($validation->success())
+	$validate = Validator::make(Input::get(), $rules);
+	if($validate->success())
 	{
 		$up_user = User::find(Input::get('id'));
 		$up_user->name = Input::get('name'); 
@@ -128,7 +127,7 @@ Route::post('update_user', function(){
 	}
 
 	return Redirect::to('user/'.Input::get('id'))
-						->with_errors($validation)
+						->with_errors($validate)
 						->with_input();
 });
 
@@ -186,7 +185,7 @@ ID | Name | Email | Created At | Updated At | Action
   	#forelse($users->results as $user)
 		[[ $user->id ]] [[ $user->name ]] | [[ $user->email ]] |
 		[[ $user->created_at ]] | [[ $user->updated_at ]]
-		[[ HTML::link('laradev/'.$user->id, 'Edit') ]] | 
+		[[ HTML::link('user/'.$user->id, 'Edit') ]] | 
 		(html < a tag) href="[[ URL::to('del_user/'.$user->id) ]]" 
 		onclick="return confirm('Are you sure?')">delete(html > a tag)
 	#empty

@@ -25,13 +25,13 @@ public function get_copy($id = '')
 	if ( ! $id) return Redirect::to_action('book@index');
 	$book = Book::find($id);
 	$users = User::all();
-	return View::make('Laradev::book.copy')
+	return View::make('book.copy')
 					->with('book', $book)
 					->with('users', $users);
 }
 public function post_copy()
 {
-	$book = Devbook::find(Input::get('book_id'));
+	$book = Book::find(Input::get('book_id'));
 	$book->users()->attach(Input::get('user_id'));
 	return Redirect::to_action('book@index');
 }

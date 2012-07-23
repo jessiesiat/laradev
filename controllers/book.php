@@ -99,7 +99,6 @@ class Laradev_Book_Controller extends Base_Controller {
 		return View::make('laradev::book.users')
 					 ->with('book', $book)
 					 ->with('pivot', $pivot);
-
 	}
 
 }

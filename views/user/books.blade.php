@@ -19,7 +19,7 @@
 Route::get('(:num)/books', function($user_id){
 	$user = User::find($user_id);
 	$pivot = $user->books()->pivot();
-	return View::make('laradev::user.books')
+	return View::make('user.books')
 					->with('user', $user)
 					->with('pivot', $pivot);
 });
@@ -42,7 +42,7 @@ public function users()
 <pre class="prettyprint linenums">
 Books own by [[ $user->name ]]
 #forelse ($pivot->get() as $pivot)
-	[[ Book::find($pivot->book_id)->title.' - author: '.Devbook::find($pivot->book_id)->author ]]
+	[[ Book::find($pivot->book_id)->title.' - author: '.Book::find($pivot->book_id)->author ]]
 #empty
 	No book owned
 #endforelse

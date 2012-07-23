@@ -91,10 +91,19 @@ class Book_Controller extends Base_Controller {
 					'published' => 'required'
 				);
 
-	public function get_index()
+	public function get_index($id = '')
 	{
 		$books = DB::table('books')->paginate(5);
-		return View::make('book.index')->with('books', $books);
+		if($id)
+		{
+			$book = Book::find($id);
+			if( ! $book) return Response::error(500);
+		}
+		else $book = '';
+
+		return View::make('book.index')
+					->with('book', $book)
+					->with('books', $books);
 	}
 
 	public function post_new()
@@ -114,7 +123,7 @@ class Book_Controller extends Base_Controller {
 		}
 
 		return Redirect::to_action('book@index')
-							->with('errors', $book->errors())
+							->with_errors($validate)
 							->with_input();
 	}
 
@@ -137,7 +146,7 @@ class Book_Controller extends Base_Controller {
 		}
 
 		return Redirect::to_action('book@index', array(Input::get('id')))
-							->with_errors('errors', $book->errors());
+							->with_errors($validate);
 	}
 
 
@@ -183,7 +192,7 @@ Class Book extends Eloquent {}
 	[[ Form::text('author', Input::old('author')) ]]
 	[[ Form::label('published', 'Date Published') ]]
 	[[ Form::text('published', Input::old('published'), array('placeholder' => 'yy-mm-dd')) ]]
-	[[ Form::submit('Update Book') ]] 
+	[[ Form::submit('Submit Book') ]] 
 [[ Form::close() ]]
 #endif
 
@@ -192,7 +201,7 @@ ID | Title | Author | Published | Created At | Updated At | Action
   	#forelse($books->results as $book)
 		[[ $book->id ]] [[ $book->title ]] | [[ $book->author ]] | [[ $book->published ]] |
 		[[ $book->created_at ]] | [[ $user->updated_at ]]
-		[[ HTML::link('laradev/'.$book->id, 'Edit') ]] | 
+		[[ HTML::link('book/'.$book->id, 'Edit') ]] | 
 		(html < a tag) href="[[ URL::to('book/delete/'.$book->id) ]]" 
 		onclick="return confirm('Are you sure?')">delete(html > a tag)
 	#empty

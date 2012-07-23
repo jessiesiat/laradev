@@ -62,7 +62,7 @@ $(document).ready(function(){
                 </div>
                 <div class="span9">
                     @if (Session::has('notify'))
-                      <div class="alert alert-info">
+                      <div class="alert alert-info" data-dismiss="alert">
                         <button class="close in fade alert" data-dismiss="alert">×</button>
                         {{ Session::get('notify') }}
                       </div>
