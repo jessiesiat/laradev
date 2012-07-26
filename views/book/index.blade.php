@@ -8,12 +8,12 @@
 @if ($book)
 <h3>Update Book Form</h3>
 	@if(Session::has('errors'))
-		<p class="alert alert-error">
+		<div class="alert alert-error">
 		<button class="close" data-dismiss="alert">×</button>
 		{{ $errors->first('title', ':message<br/>') }} 
 		{{ $errors->first('author', ':message<br/>') }}
 		{{ $errors->first('published', ':message<br/>') }}
-		</p>
+		</div>
 	@endif
 	{{ Form::open('laradev/book/update') }}
 		{{ Form::hidden('id', $book->id) }}

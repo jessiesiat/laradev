@@ -1,5 +1,4 @@
 @layout('laradev::layout.main')
-
 @section('content')
 <h2>Manage Users</h2>
 <p>A simple user management app.</p>
@@ -7,12 +6,12 @@
 @if($user)
 <h3>Update User Form</h3>
 	@if(Session::has('errors'))
-		<p class="alert alert-error">
-		<button class="close in fade alert" data-dismiss="alert">×</button>
+		<div class="alert alert-error">
+		<button class="close" data-dismiss="alert">×</button>
 		{{ $errors->first('name', ':message<br/>') }} 
 		{{ $errors->first('email', ':message<br/>') }}
 		{{ $errors->first('password', ':message<br/>') }}
-		</p>
+		</div>
 	@endif
 	{{ Form::open('laradev/update_user') }}
 		{{ Form::hidden('id', $user->id) }}

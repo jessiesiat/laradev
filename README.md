@@ -25,7 +25,7 @@ Make sure you dont have a table 'users' that already exists!
 First create a migration table to store changes made in the db.
 run `php artisan migrate:install`
 
-To create the tables, run this in your command line
+To install laradev tables, run this in your command line
 `php artisan migrate laradev`
 
 ### Auth
@@ -34,7 +34,7 @@ Laradev uses the default auth class built within laravel.
 	- 'table' => 'users'
 	- 'model' => 'User'
 	- etc. 
-*So dont create a 'User' model in your application directory, it will just break my code at this point. I'll see what I can do to handle it!
+*So dont create a 'User' model in your application directory, Laradev has it, it might just break the code if you create one. I'll see what I can do to handle it!
 
 ### Assets
 
@@ -44,12 +44,13 @@ run `php artisan bundle::publish`
 
 --
 
-Thats it! 
-Now visit `http://yourapp/laradev` and login with the default user/password.
+Thats it for now, 
+append `laradev` to the url of `yourapp` (`http://yourapp/laradev`) and login with the default user/password.
 Username: juan@ph.ph
 Password: juan123
 
----
+--
 
 Thats it for now and I hope you will learn from it.
 
+---
