@@ -5,7 +5,7 @@
 <hr/>
 <ul>
 @forelse ($pivot->get() as $pivot)
-	<li>{{ '<b>'.User::find($pivot->user_id)->name.'</b> <em>('.HTML::mailto(User::find($pivot->user_id)->email).')</em>' }}</li>
+	<li>{{ '<b>'.DevUser::find($pivot->devuser_id)->name.'</b> <em>('.HTML::mailto(DevUser::find($pivot->devuser_id)->email).')</em>' }}</li>
 @empty
 	<p>No user owe this book</p>
 @endforelse

@@ -13,10 +13,5 @@ class Base_Controller extends Controller {
 	{
 		return Response::error('404');
 	}
-
-	public function __construct()
-	{
-		
-	}
-
+	
 }

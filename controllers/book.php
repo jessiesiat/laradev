@@ -6,7 +6,7 @@ class Laradev_Book_Controller extends Base_Controller {
 
 	public function __construct()
 	{
-		$this->filter('before', 'auth');
+		$this->filter('before', 'dev_auth');
 	}
 
 	public function get_index($id = '')
@@ -75,7 +75,7 @@ class Laradev_Book_Controller extends Base_Controller {
 	{
 		if ( ! $id) return Redirect::to_action('Laradev::book@index');
 		$book = Devbook::find($id);
-		$users = User::all();
+		$users = DevUser::all();
 
 		return View::make('Laradev::book.copy')
 							->with('book', $book)

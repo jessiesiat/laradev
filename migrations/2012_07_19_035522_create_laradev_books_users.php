@@ -11,7 +11,7 @@ class Laradev_Create_Laradev_Books_Users {
 	{
 		Schema::create('laradev_books_users', function($table){
 			$table->increments('id');
-			$table->integer('user_id');
+			$table->integer('devuser_id');
 			$table->integer('devbook_id');
 			$table->timestamps();
 		});

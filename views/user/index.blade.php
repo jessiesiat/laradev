@@ -28,12 +28,12 @@
 @else
 <h3>New User Form</h3>
 	@if(Session::has('errors'))
-		<p class="alert alert-error">
-		<button class="close in fade alert" data-dismiss="alert">×</button>
+		<div class="alert alert-error">
+		<button class="close" data-dismiss="alert">×</button>
 		{{ $errors->first('name', ':message<br/>') }} 
 		{{ $errors->first('email', ':message<br/>') }}
 		{{ $errors->first('password', ':message<br/>') }}
-		</p>
+		</div>
 	@endif
 	{{ Form::open('laradev/new_user') }}
 		{{ Form::label('name', 'Name') }}
@@ -73,7 +73,7 @@
   <p>Dont leave the users empty you need it for login to view this page.</p>
 </blockquote>
 <hr/>
-<h3>The Code</h3>
+<h3>Source Code</h3>
 <p>The app above is a simple user entry form and maintainance which uses laravel routes to handle get and post request. I utilize <a href="http://laravel.com/docs/views/templating#blade-template-engine">laravel blade</a> template engine which uses braces for php tags and really! it looks clean!</p>
 <p>To learn more on routing with laravel visit <a href="http://laravel.com/docs/routing" target="_blank">Laravel routing documentation</a>.</p>
 <p>Please refer to the laravel documentation if you did not understand some code. Quick links are prodived on the side.</p>

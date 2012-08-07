@@ -12,16 +12,16 @@ Asset::container('laradev-footer')->bundle('laradev')->add('scroll', 'js/scroll.
 
 Route::controller(Controller::detect('laradev'));
 
-Route::get('(:bundle)/login', array('as' => 'dev_login', 'do' => function(){
+Route::get('(:bundle)/login', array('as' => 'dev_login', function(){
 	return View::make('laradev::login');
 }));
 
-Route::post('(:bundle)/login', array('do'  => function() {
+Route::post('(:bundle)/login', function() {
 
         $username = Input::get('username');
         $password = Input::get('password');
         
-        if ( Auth::attempt( array('username' => $username, 'password' => $password)) )
+        if ( LaradevAuth::attempt( array('username' => $username, 'password' => $password)) )
         {
         	return Redirect::to_route('dev_index');
         }
@@ -30,15 +30,15 @@ Route::post('(:bundle)/login', array('do'  => function() {
 	        return Redirect::to_route('dev_login')->with('errors', true);
         }
 
-}));
+});
 
-Route::group(array('before' => 'auth'), function(){
+Route::group(array('before' => 'dev_auth'), function(){
 
-	Route::get('(:bundle)/(:num?)', array('as' => 'dev_index', 'do' => function($id = ''){
-		$users = DB::table('users')->paginate(5);
+	Route::get('(:bundle)/(:num?)', array('as' => 'dev_index', function($id = ''){
+		$users = DB::table('laradev_users')->paginate(5);
 		if($id) 
 		{
-			$user = User::find($id);
+			$user = DevUser::find($id);
 			if( ! $user) return Response::error(500);
 		}
 		else $user = '';
@@ -50,7 +50,7 @@ Route::group(array('before' => 'auth'), function(){
 
 	Route::post('(:bundle)/new_user', function(){
 		$input = Input::get();
-		$user = new User();
+		$user = new DevUser();
 		if($user->validate($input))
 		{
 			$data = array(
@@ -58,8 +58,9 @@ Route::group(array('before' => 'auth'), function(){
 				'email' => Input::get('email'),
 				'password' => Hash::make(Input::get('password'))
 			);
-			$create = User::create($data);
-			return Redirect::to_route('dev_index');
+			$create = DevUser::create($data);
+			return Redirect::to_route('dev_index')
+								->with('notify', 'Successfuly created user.');
 		}
 
 		return Redirect::to_route('dev_index')
@@ -69,10 +70,10 @@ Route::group(array('before' => 'auth'), function(){
 
 	Route::post('(:bundle)/update_user', function(){
 		$input = Input::get();
-		$user = new User();
+		$user = new DevUser();
 		if($user->validate($input))
 		{
-			$up_user = User::find(Input::get('id'));
+			$up_user = DevUser::find(Input::get('id'));
 			$up_user->name = Input::get('name'); 
 			$up_user->email = Input::get('email'); 
 			$up_user->password = Hash::make(Input::get('password'));
@@ -86,13 +87,14 @@ Route::group(array('before' => 'auth'), function(){
 							->with_input();
 	});
 
-	Route::get('(:bundle)/del/(:num)', array('as' => 'del_dev_user' , 'do' => function($id){
-		User::find($id)->delete();
-		return Redirect::to_route('dev_index');
+	Route::get('(:bundle)/del/(:num)', array('as' => 'del_dev_user' , function($id){
+		DevUser::find($id)->delete();
+		return Redirect::to_route('dev_index')
+							->with('notify', 'Successfuly remove user.');
 	}));
 
-	Route::get('(:bundle)/(:num)/books', array('as' => 'user_books', 'to' => function($user_id){
-		$user = User::find($user_id);
+	Route::get('(:bundle)/(:num)/books', array('as' => 'user_books', function($user_id){
+		$user = DevUser::find($user_id);
 		$pivot = $user->books()->pivot();
 		return View::make('laradev::user.books')
 						->with('user', $user)
@@ -101,8 +103,8 @@ Route::group(array('before' => 'auth'), function(){
 
 });
 
-Route::get('(:bundle)/logout', array('as' => 'dev_logout', 'do' => function(){
-	Auth::logout();	
+Route::get('(:bundle)/logout', array('as' => 'dev_logout', function(){
+	LaradevAuth::logout();
 	return Redirect::to_route('dev_login');
 }));
 
@@ -113,7 +115,7 @@ Route::get('(:bundle)/logout', array('as' => 'dev_logout', 'do' => function(){
 */
 
 Event::listen('laradev.new_user', function($id){
-		$user = User::find($id);
+		$user = DevUser::find($id);
 		$user->email = $user->email.'_'.time();
 		$user->save();
 });
@@ -161,7 +163,7 @@ Route::filter('csrf', function()
 	if (Request::forged()) return Response::error('500');
 });
 
-Route::filter('auth', function()
+Route::filter('dev_auth', function()
 {
-	if (Auth::guest()) return Redirect::to_route('dev_login');
+	if (LaradevAuth::guest()) return Redirect::to_route('dev_login');
 });

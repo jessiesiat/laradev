@@ -28,12 +28,12 @@
 @else
 <h3>New Book Form</h3>
 	@if(Session::has('errors'))
-		<p class="alert alert-error">
+		<div class="alert alert-error">
 		<button class="close" data-dismiss="alert">×</button>
 		{{ $errors->first('title', ':message<br/>') }} 
 		{{ $errors->first('author', ':message<br/>') }}
 		{{ $errors->first('published', ':message<br/>') }}
-		</p>
+		</div>
 	@endif
 	{{ Form::open('laradev/book/new') }}
 		{{ Form::label('title', 'Title') }}
@@ -57,7 +57,7 @@
   	<tr>
 		<td>{{ $book->id }}</td>
 		<td>{{ $book->title }}</td><td>{{ $book->author }}</td><td>{{ $book->published }}</td><td>{{ $book->created_at }}</td><td>{{ $book->updated_at }}</td>
-		<td> <a href="{{ action('Laradev::book@index', array($book->id)) }}" alt="edit" title="edit"><i class="icon-edit"></i></a> | <a onclick="return confirm('Are you sure?')" href="{{ action('Laradev::book@delete', array($book->id)) }}" alt="delete" title="delete"><i class="icon-trash"></i></a> | <a href="{{ action('Laradev::book@copy', array($book->id)) }}" alt="buy" title="buy"><i class="icon-shopping-cart"></i></a></td>
+		<td> <a href="{{ action('Laradev::book@index', array($book->id)) }}" alt="edit" title="edit"><i class="icon-edit"></i></a> | <a onclick="return confirm('Are you sure?')" href="{{ action('Laradev::book@delete', array($book->id)) }}" alt="delete" title="delete"><i class="icon-trash"></i></a> | <a href="{{ action('Laradev::book@copy', array($book->id)) }}" alt="provide" title="provide"><i class="icon-shopping-cart"></i></a></td>
 	</tr>
 	@empty
 	<tr>
@@ -68,7 +68,7 @@
 </table>
 {{ $books->links() }}
 <hr/>
-<h3>The Code</h3>
+<h3>Source Code</h3>
 <p>As what we are familiar with, lets work with C(Controller)in MVC. This is where we write code that communicates to our M(Model) where the business entities is being defined and display it in the V(Views). The app above is a simple book management/inventory. Take a look and try how it works!</p>
 <p>To learn more on working with laravel controller visit <a href="http://laravel.com/docs/controllers" target="_blank">Laravel controller documentation</a>.</p>
 <hr/>
@@ -202,8 +202,8 @@ ID | Title | Author | Published | Created At | Updated At | Action
 		[[ $book->id ]] [[ $book->title ]] | [[ $book->author ]] | [[ $book->published ]] |
 		[[ $book->created_at ]] | [[ $user->updated_at ]]
 		[[ HTML::link('book/'.$book->id, 'Edit') ]] | 
-		(html < a tag) href="[[ URL::to('book/delete/'.$book->id) ]]" 
-		onclick="return confirm('Are you sure?')">delete(html > a tag)
+		(html < a tag) href="[[ action('book@delete', array($book->id)) ]]" onclick="return confirm('Are you sure?')">delete(html > a tag)
+		(html < a tag) href="[[ action('book@copy', array($book->id)) ]]">provide(html > a tag)
 	#empty
 		No data found.
 	#endforels

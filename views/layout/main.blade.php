@@ -18,7 +18,7 @@ $(document).ready(function(){
             <ul class="nav">
               <li class="brand">Laradev</li>
               <li class="divider-vertical"><a href="#">Link</a></li>
-              @if (Auth::check())
+              @if (LaradevAuth::check())
               <li class="{{ URI::is('laradev') ? 'active' : '' }}">
                 <a href="{{ URL::to('laradev') }}">Manage Users</a>
               </li>
@@ -28,7 +28,7 @@ $(document).ready(function(){
               @endif
             </ul>
             <ul class="nav pull-right">
-            @if (Auth::check())
+            @if (LaradevAuth::check())
               <li>{{ HTML::link('laradev/logout', 'Logout') }}</li>
             @else
               <li>{{ HTML::link('laradev/login', 'Login') }}</li>
@@ -44,7 +44,7 @@ $(document).ready(function(){
                   <h2>Laradev</h2>
                   <p> A project created to test the beauty of Laravel </p>
                   <hr/>
-                  @if(Auth::check())
+                  @if(LaradevAuth::check())
                     <b>Official Documentation</b>
                     <ul class="unstyled">
                       <li><a href="http://laravel.com/docs/routing" target="_blank">Routing</a></li>

@@ -1,6 +1,6 @@
 <?php
 
-Class Devbook extends Elegant {
+Class DevBook extends Elegant {
 	
 	public static $table = 'laradev_books';
 
@@ -12,7 +12,7 @@ Class Devbook extends Elegant {
 
 	public function users()
 	{
-		return $this->has_many_and_belongs_to('User', 'laradev_books_users');
+		return $this->has_many_and_belongs_to('DevUser', 'laradev_books_users');
 	}
 
 }
