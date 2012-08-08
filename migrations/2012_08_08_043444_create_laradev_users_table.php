@@ -1,6 +1,6 @@
 <?php
 
-class Laradev_Create_Devusers_Table {
+class Laradev_Create_Laradev_Users_Table {
 
 	/**
 	 * Make changes to the database.

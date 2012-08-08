@@ -151,13 +151,13 @@ jQuery.extend( jQuery.easing,
 	$.fn.UItoTop = function(options) {
 
  		var defaults = {
-			text: 'To Top',
+			text: 'Top',
 			min: 200,
 			inDelay:600,
 			outDelay:400,
   			containerID: 'toTop',
 			containerHoverID: 'toTopHover',
-			scrollSpeed: 1200,
+			scrollSpeed: 1000,
 			easingType: 'linear'
  		};
 

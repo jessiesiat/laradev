@@ -61,7 +61,7 @@
 	</tr>
 	@empty
 	<tr>
-		<td td colspan="6">No book in the shelf.</td>
+		<td td colspan="7">No book yet in the shelf.</td>
 	</tr>
 	@endforelse
 </tbody>

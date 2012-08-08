@@ -1,6 +1,6 @@
 <?php
 
-class Laradev_Create_Laradev_Books {
+class Laradev_Create_Laradev_Book_User_Table {
 
 	/**
 	 * Make changes to the database.
@@ -9,12 +9,10 @@ class Laradev_Create_Laradev_Books {
 	 */
 	public function up()
 	{
-		Schema::create('laradev_books', function($table){
+		Schema::create('laradev_book_user', function($table){
 			$table->increments('id');
-			$table->string('title', 64);
-			$table->text('desc');
-			$table->string('author', 128);
-			$table->date('published');
+			$table->integer('devuser_id');
+			$table->integer('devbook_id');
 			$table->timestamps();
 		});
 	}
@@ -26,7 +24,7 @@ class Laradev_Create_Laradev_Books {
 	 */
 	public function down()
 	{
-		Schema::drop('laradev_books');
+		Schema::drop('laradev_book_user');
 	}
 
 }

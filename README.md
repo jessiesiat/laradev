@@ -19,38 +19,31 @@ Add this to your 'bundles.php' array
 
 ### Migration
 
-Tables in laradev are prefix with 'laradev', i.e. 'laradev_books', etc. except for 'users' table.
-Make sure you dont have a table 'users' that already exists!
+Tables in laradev are prefix with 'laradev', i.e. 'laradev_books', 'laradev_users' and 'laradev_book_user' table.
 
-First create a migration table to store changes made in the db.
+First create a migration table to store the changes made in the db.
 run `php artisan migrate:install`
 
 To install laradev tables, run this in your command line
 `php artisan migrate laradev`
 
-### Auth
-
-Laradev uses the default auth class built within laravel.
-	- 'table' => 'users'
-	- 'model' => 'User'
-	- etc. 
-*So dont create a 'User' model in your application directory, Laradev has it, it might just break the code if you create one. I'll see what I can do to handle it!
-
 ### Assets
 
-Publish laradev asset to your public directory
+Publish laradev asset to the your public working directory
 
 run `php artisan bundle::publish`
 
 --
 
-Thats it for now, 
-append `laradev` to the url of `yourapp` (`http://yourapp/laradev`) and login with the default user/password.
-Username: juan@ph.ph
-Password: juan123
+Append `laradev` to the url of `yourapp`
+`http://yourapp/laradev`
+
+And login with the default user/password.
+`Username: juan@ph.ph`
+`Password: juan123`
 
 --
 
-Thats it for now and I hope you will learn from it.
+License under MIT license.
 
 ---
