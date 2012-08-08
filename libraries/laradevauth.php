@@ -28,7 +28,6 @@ class LaradevAuth {
 	public static function guest()
 	{
 		return ! (DevUser::find(Session::get('laradev_auth')));
-		//return ! $this->user(Session::get('laradev_auth'));
 	}
 
 	public static function check()

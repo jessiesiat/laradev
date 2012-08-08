@@ -81,7 +81,7 @@
 <h4>Route</h4>
 <pre class="prettyprint linenums">
 //application\routes.php
-Route::get('user/(:num?)', array('before' => 'auth', 'do' => function($id){
+Route::get('user/(:num?)', array('before' => 'auth', function($id){
 	$users = DB::table('users')->paginate(5);
 	if($id)
 	{
@@ -95,7 +95,7 @@ Route::get('user/(:num?)', array('before' => 'auth', 'do' => function($id){
 					->with('user', $user);
 }));
 
-Route::post('new_user', array('before' => 'auth', 'do' => function(){
+Route::post('new_user', array('before' => 'auth', function(){
 	$data = array(
 		'name' => Input::get('name'),
 		'email' => Input::get('email'),
@@ -107,7 +107,7 @@ Route::post('new_user', array('before' => 'auth', 'do' => function(){
 	return Redirect::to('user');
 }));
 
-Route::post('update_user', function(){
+Route::post('update_user', array('before' => 'auth', function(){
 	$rules = array(
 				'name' => 'required',
 				'email' => 'required|email',
@@ -128,9 +128,9 @@ Route::post('update_user', function(){
 	return Redirect::to('user/'.Input::get('id'))
 						->with_errors($validate)
 						->with_input();
-});
+}));
 
-Route::get('del_user/(:num)', array('before' => 'auth', 'do' => function($id){
+Route::get('del_user/(:num)', array('before' => 'auth', function($id){
 	$user = User::find($id);
 	$user->delete();
 	return Redirect::to('user');
@@ -163,7 +163,7 @@ Update User Form
 		[[ Form::password('password') ]]
 		[[ Form::label('password_confirmation', 'Confirm Password') ]]
 		[[ Form::password('password_confirmation') ]]
-		[[ Form::submit('Update User', array('class' => 'btn')) ]] or [[ HTML::link('user', 'Cancel') ]]
+		[[ Form::submit('Update User') ]] or [[ HTML::link('user', 'Cancel') ]]
 [[ Form::close() ]]
 #else
 New User Form
@@ -176,7 +176,7 @@ New User Form
 		[[ Form::password('password') ]]
 		[[ Form::label('password_confirmation', 'Confirm Password') ]]
 		[[ Form::password('password_confirmation') ]]
-		[[ Form::submit('Submit User', array('class' => 'btn')) ]]
+		[[ Form::submit('Submit User') ]]
 [[ Form::close() ]]
 #endif
 List of User

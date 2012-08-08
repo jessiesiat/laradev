@@ -91,6 +91,11 @@ class Book_Controller extends Base_Controller {
 					'published' => 'required'
 				);
 
+	public function __construct()
+	{
+		$this->filter('before', 'auth');
+	}
+
 	public function get_index($id = '')
 	{
 		$books = DB::table('books')->paginate(5);
