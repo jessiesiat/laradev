@@ -29,7 +29,7 @@ $(document).ready(function(){
             </ul>
             <ul class="nav pull-right">
             @if (LaradevAuth::check())
-              <li><a href="{{ URL::to('laradev/'.Session::get('laradev_auth').'/books') }}">Loggin as {{ DevUser::find(Session::get('laradev_auth'))->name }}</a></li>
+              <li><a href="{{ URL::to('laradev/'.Session::get('laradev_auth').'/books') }}">Hi {{ DevUser::find(Session::get('laradev_auth'))->name }}</a></li>
               <li class="divider-vertical"></li>
               <li>{{ HTML::link('laradev/logout', 'Logout') }}</li>
             @else

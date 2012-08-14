@@ -1,7 +1,7 @@
 @layout('laradev::layout.main')
 @section('content')
 <h2>Manage Users</h2>
-<p>A simple user management app.</p>
+<p>A simple user management.</p>
 <hr/>
 @if($user)
 <h3>Update User Form</h3>

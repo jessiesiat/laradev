@@ -12,7 +12,7 @@
 </ul>
 <hr/>
 <h3>Source Code</h3>
-<p>Here we are using using Eloquent <i>pivot</i> method to retrieve data in our pivot table(book_user).</p>
+<p>Here we are using Eloquent <i>pivot</i> method to retrieve data in our pivot table(book_user).</p>
 
 <b>Route</b>
 <pre class="prettyprint linenums">

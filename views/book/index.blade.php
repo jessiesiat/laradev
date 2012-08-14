@@ -3,7 +3,7 @@
 @section('content')
 
 <h2>Manage Books</h2>
-<p>A simple book management app.</p>
+<p>A simple book management.</p>
 <hr/>
 @if ($book)
 <h3>Update Book Form</h3>
