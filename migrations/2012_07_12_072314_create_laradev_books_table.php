@@ -17,6 +17,12 @@ class Laradev_Create_Laradev_Books_Table {
 			$table->date('published');
 			$table->timestamps();
 		});
+
+		DB::table('laradev_books')->insert(array(
+			'title' => 'Code Happy',
+			'desc' => 'Web development with the Laravel PHP framework',
+			'author' => 'Dayle Rees'
+		));
 	}
 
 	/**

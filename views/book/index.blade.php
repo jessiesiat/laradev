@@ -12,7 +12,7 @@
 		<button class="close" data-dismiss="alert">×</button>
 		{{ $errors->first('title', ':message<br/>') }} 
 		{{ $errors->first('author', ':message<br/>') }}
-		{{ $errors->first('published', ':message<br/>') }}
+		{{ $errors->first('desc', ':message<br/>') }}
 		</div>
 	@endif
 	{{ Form::open('laradev/book/update') }}
@@ -21,8 +21,8 @@
 		{{ Form::text('title', $book->title) }}
 		{{ Form::label('author', 'Author') }}
 		{{ Form::text('author', $book->author) }}
-		{{ Form::label('published', 'Date Published') }}
-		{{ Form::text('published', $book->published, array('placeholder' => 'yy-mm-dd')) }}
+		{{ Form::label('desc', 'Description') }}
+		{{ Form::textarea('desc', $book->desc) }}
 		<p>{{ Form::submit('Update Book', array('class' => 'btn btn-primary')) }} or {{ HTML::link('laradev/book', 'Cancel') }} </p>
 	{{ Form::close() }}
 @else
@@ -32,7 +32,7 @@
 		<button class="close" data-dismiss="alert">×</button>
 		{{ $errors->first('title', ':message<br/>') }} 
 		{{ $errors->first('author', ':message<br/>') }}
-		{{ $errors->first('published', ':message<br/>') }}
+		{{ $errors->first('description', ':message<br/>') }}
 		</div>
 	@endif
 	{{ Form::open('laradev/book/new') }}
@@ -40,8 +40,8 @@
 		{{ Form::text('title', Input::old('title')) }}
 		{{ Form::label('author', 'Author') }}
 		{{ Form::text('author', Input::old('author')) }}
-		{{ Form::label('published', 'Date Published') }}
-		{{ Form::text('published', Input::old('published'), array('placeholder' => 'yy-mm-dd')) }}
+		{{ Form::label('desc', 'Description') }}
+		{{ Form::textarea('desc', Input::old('description')) }}
 		<p>{{ Form::submit('Submit Book', array('class' => 'btn btn-primary')) }}</p>
 	{{ Form::close() }}
 @endif
@@ -49,14 +49,14 @@
 <table class="table table-striped table-condensed table-bordered">
   <thead>
     <tr>
-      <th>ID</th><th>Title</th><th>Author</th><th>Published</th><th>Created At</th><th>Updated At</th><th>Action</th>
+      <th>ID</th><th>Title</th><th>Author</th><th>Created At</th><th>Updated At</th><th>Action</th>
     </tr>
   </thead>
   <tbody>
   	@forelse($books->results as $book)
   	<tr>
 		<td>{{ $book->id }}</td>
-		<td>{{ $book->title }}</td><td>{{ $book->author }}</td><td>{{ $book->published }}</td><td>{{ $book->created_at }}</td><td>{{ $book->updated_at }}</td>
+		<td>{{ $book->title }}</td><td>{{ $book->author }}</td><td>{{ $book->created_at }}</td><td>{{ $book->updated_at }}</td>
 		<td> <a href="{{ action('Laradev::book@index', array($book->id)) }}" alt="edit" title="edit"><i class="icon-edit"></i></a> | <a onclick="return confirm('Are you sure?')" href="{{ action('Laradev::book@delete', array($book->id)) }}" alt="delete" title="delete"><i class="icon-trash"></i></a> | <a href="{{ action('Laradev::book@copy', array($book->id)) }}" alt="provide" title="provide"><i class="icon-shopping-cart"></i></a></td>
 	</tr>
 	@empty
@@ -86,9 +86,9 @@ class Book_Controller extends Base_Controller {
 	
 	public $restful = true;
 	protected $rules = array(
-					'author' => 'required',
-					'title' => 'required',
-					'published' => 'required'
+					'author' => 'required|min:2',
+					'title' => 'required|min:2',
+					'desc' => 'required|min:12'
 				);
 
 	public function __construct()
@@ -116,7 +116,7 @@ class Book_Controller extends Base_Controller {
 		$data = array(
 				'title' => Input::get('title'),
 				'author' => Input::get('author'),
-				'published' => Input::get('published')
+				'desc' => Input::get('desc')
 			);
 
 		$validate = Validator::make($data, $this->rules);
@@ -143,7 +143,7 @@ class Book_Controller extends Base_Controller {
 			$up_book = Devbook::find(Input::get('id'));
 			$up_book->author = Input::get('author');
 			$up_book->title = Input::get('title');
-			$up_book->published = Input::get('published');
+			$up_book->desc = Input::get('desc');
 
 			$up_book->save();
 			return Redirect::to_action('book@index')
@@ -176,7 +176,7 @@ Class Book extends Eloquent {}
 #if(Session::has('errors')
 	[[ $errors->first('title', ':message') ]] 
 	[[ $errors->first('author', ':message') ]]
-	[[ $errors->first('published', ':message') ]]
+	[[ $errors->first('desc', ':message') ]]
 #endif
 #if ($book)
 [[ Form::open('book/update') ]]
@@ -185,8 +185,8 @@ Class Book extends Eloquent {}
 	[[ Form::text('title', $book->title) ]]
 	[[ Form::label('author', 'Author') ]]
 	[[ Form::text('author', $book->author) ]]
-	[[ Form::label('published', 'Date Published') ]]
-	[[ Form::text('published', $book->published, array('placeholder' => 'yy-mm-dd')) ]]
+	[[ Form::label('desc', 'Description') ]]
+	[[ Form::text('desc', $book->desc) ]]
 	[[ Form::submit('Update Book', array('class' => 'btn btn-primary')) ]] or [[ HTML::link('book', 'Cancel') ]]
 [[ Form::close() ]]
 #else 
@@ -195,16 +195,16 @@ Class Book extends Eloquent {}
 	[[ Form::text('title', Input::old('title')) ]]
 	[[ Form::label('author', 'Author') ]]
 	[[ Form::text('author', Input::old('author')) ]]
-	[[ Form::label('published', 'Date Published') ]]
-	[[ Form::text('published', Input::old('published'), array('placeholder' => 'yy-mm-dd')) ]]
+	[[ Form::label('desc', 'Description') ]]
+	[[ Form::text('desc', Input::old('desc')) ]]
 	[[ Form::submit('Submit Book') ]] 
 [[ Form::close() ]]
 #endif
 
 List of Books
-ID | Title | Author | Published | Created At | Updated At | Action
+ID | Title | Author | Created At | Updated At | Action
   	#forelse($books->results as $book)
-		[[ $book->id ]] [[ $book->title ]] | [[ $book->author ]] | [[ $book->published ]] |
+		[[ $book->id ]] [[ $book->title ]] | [[ $book->author ]] |
 		[[ $book->created_at ]] | [[ $user->updated_at ]]
 		[[ HTML::link('book/'.$book->id, 'Edit') ]] | 
 		(html < a tag) href="[[ action('book@delete', array($book->id)) ]]" onclick="return confirm('Are you sure?')">delete(html > a tag)

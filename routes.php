@@ -35,7 +35,7 @@ Route::post('(:bundle)/login', function() {
 Route::group(array('before' => 'dev_auth'), function(){
 
 	Route::get('(:bundle)/(:num?)', array('as' => 'dev_index', function($id = ''){
-		$users = DB::table('laradev_users')->paginate(5);
+		$users = Devuser::paginate(5);
 		if($id) 
 		{
 			$user = DevUser::find($id);

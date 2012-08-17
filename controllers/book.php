@@ -11,7 +11,7 @@ class Laradev_Book_Controller extends Base_Controller {
 
 	public function get_index($id = '')
 	{
-		$books = DB::table('laradev_books')->paginate(5);
+		$books = Devbook::paginate(5);
 		if($id)
 		{
 			$book = Devbook::find($id);
@@ -29,7 +29,7 @@ class Laradev_Book_Controller extends Base_Controller {
 		$data = array(
 				'title' => Input::get('title'),
 				'author' => Input::get('author'),
-				'published' => Input::get('published')
+				'desc' => Input::get('desc')
 			);
 
 		$book = new Devbook();
@@ -55,7 +55,7 @@ class Laradev_Book_Controller extends Base_Controller {
 			$up_book = Devbook::find(Input::get('id'));
 			$up_book->author = Input::get('author');
 			$up_book->title = Input::get('title');
-			$up_book->published = Input::get('published');
+			$up_book->desc = Input::get('desc');
 
 			$up_book->save();
 			return Redirect::to_action('Laradev::book@index')->with('notify', 'Successfuly update book.');

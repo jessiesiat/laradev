@@ -3,7 +3,7 @@
 class DevUser extends Elegant {
 	
 	public static $table = 'laradev_users';
-
+	public static $accessible = array('name', 'email', 'password');
 	protected $rules = array(
 						'name' => 'required',
 						'email' => 'required|email',
