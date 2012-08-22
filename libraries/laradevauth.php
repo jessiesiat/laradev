@@ -2,13 +2,6 @@
 
 class LaradevAuth {
 
-	/**
-	 * The current value of the user's token
-	 * 
-	 * @var int/null
-	 */
-	public $token;
-
 	/*
   	 * Current driver being user
   	 *
@@ -17,17 +10,6 @@ class LaradevAuth {
 	static $driver = array();
 
 	public function __construct() {}
-
-	/**
-	 * Logout the current logged in user
-	 *
-	 * @return boolean
-	 */
-	public static function logout()
-	{
-		Session::forget('laradev_auth');
-		return true;
-	}
 
 	public static function driver()
 	{

@@ -5,11 +5,26 @@ use Laravel\Hash, Laravel\Config, Laravel\Session;
 class Eloquent {
 
 	/**
-	 * The current user being manage by the application
+	 * The current value of the user's token
 	 * 
-	 * @var mixed
+	 * @var int/null
+	 */
+	public $token;
+
+	/**
+	 * The currently logged in user
+	 * 
+	 * @var int/null
 	 */
 	public $user;
+
+	public function __construct()
+	{
+		if (Session::started())
+		{
+			$this->token = Session::get($this->token());
+		}
+	}
 
 	/**
 	 * Attempt to log in user
@@ -23,9 +38,7 @@ class Eloquent {
 						
 		if( ! is_null($user) and (Hash::check($arguments['password'], $user->password)))
 		{
-			Session::put('laradev_auth', $user->id);
-			//$this->token = $user->id;
-			//$this->user = $user;
+			$this->login($user->id, array_get($arguments, 'remember'));
 
 			return true;
 		}				
@@ -52,11 +65,6 @@ class Eloquent {
 		return ! is_null($this->user());
 	}
 
-	public static function con($name)
-	{
-		echo 'He yo! '.$name;
-	}
-
 	/**
 	 * Determine of user exists
 	 *
@@ -64,7 +72,54 @@ class Eloquent {
 	 */
 	protected function user()
 	{
-		 return $this->user = $this->model()->find(Session::get('laradev_auth'));
+		if( ! is_null($this->user)) return $this->user;
+
+		return $this->user = $this->retrieve($this->token);	
+	}
+
+	/**
+	 * Get the current user of the application
+	 *
+	 * @param int    $id
+	 * @return mixed/null
+	 */
+	public function retrieve($id)
+	{
+		if (filter_var($id, FILTER_VALIDATE_INT) !== false)
+		{
+			return $this->model()->find($id);
+		}
+	}
+
+	/**
+	 * Login the user token
+	 *
+	 * @return boolean
+	 */
+	public function login($token, $remember = false)
+	{
+		$this->token = $token;
+
+		$this->store($token);
+
+		return true;
+	}
+
+	/**
+	 * Store the token of the current logged in user in session
+	 *
+	 * @return null
+	 */
+	protected function store($token)
+	{
+		Session::put($this->token(), $token);
+	}
+
+	public function logout()
+	{
+		$this->user = null;
+
+		Session::forget($this->token());
 	}
 
 	/**
@@ -77,6 +132,16 @@ class Eloquent {
 		$model = Config::get('laradev::laradev.model');
 
 		return new $model;
+	}
+
+	/**
+	 * Token name use for loggin user
+	 *
+	 * @return mixed
+	 */
+	protected function token()
+	{
+		return 'laradev_auth';
 	}
 
 }

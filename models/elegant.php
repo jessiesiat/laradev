@@ -1,19 +1,19 @@
 <?php
 
-/*
-/	@package:	Laradev ~ a bundle for laravel
-/	@author:	Jessie Siat
-/	@email: 	jecrs.siat@gmail.com
-*/
+ /**
+  *	@package:	Laradev ~ a bundle for laravel
+  *	@author:	Jessie Siat
+  *	@email: 	jecrs.siat@gmail.com
+ */
 
 class Elegant extends Eloquent {
 
 	protected $rules = array();
 	protected $errors;
 
-	/*
-	/	data validation
-	*/
+	/**
+	 *	Data validation
+	 */
 	public function validate($data)
 	{
 		$v = Validator::make($data, $this->rules);
